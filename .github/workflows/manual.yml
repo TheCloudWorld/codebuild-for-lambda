@@ -1,7 +1,13 @@
 permissions:
   id-token: write   # REQUIRED for OIDC
   contents: read
-
+on:
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: 'Why are you running this?'
+        required: true
+        default: 'Manual test'
 jobs:
   deploy:
     runs-on: ubuntu-latest
