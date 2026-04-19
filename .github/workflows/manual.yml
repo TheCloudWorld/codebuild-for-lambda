@@ -1,0 +1,19 @@
+permissions:
+  id-token: write   # REQUIRED for OIDC
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::358262661706:role/github-oidc-web-identity
+          aws-region: ap-south-1
+
+      - name: Test AWS Access
+        run: aws sts get-caller-identity
